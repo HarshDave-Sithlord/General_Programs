@@ -1,5 +1,22 @@
 #include "queue.h"
 
+static bool_t queue_full(struct queue *q)
+{
+	bool_t ret = FAIL;
+	if(q)
+	{
+		if( ((q->head + 1) % q->queue_size) == ((q->tail) % q->queue_size) )
+		{
+			ret = OK;
+		}
+		else
+		{
+			ret = FAIL;
+		}
+	}
+	return ret;
+}
+
 bool_t init_queue(int queue_size, struct queue **memory )
 {
 	bool_t ret = FAIL;
@@ -20,23 +37,6 @@ bool_t init_queue(int queue_size, struct queue **memory )
 				(*memory)->data_items[i].data = NULL;
 				(*memory)->data_items[i].data_length = 0;
 			}
-		}
-	}
-	return ret;
-}
-
-static bool_t queue_full(struct queue *q)
-{
-	bool_t ret = FAIL;
-	if(q)
-	{
-		if( ((q->head + 1) % q->queue_size) == ((q->tail) % q->queue_size) )
-		{
-			ret = OK;
-		}
-		else
-		{
-			ret = FAIL;
 		}
 	}
 	return ret;
